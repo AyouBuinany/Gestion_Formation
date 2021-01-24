@@ -1,9 +1,9 @@
 const express = require('express');
 const mysql = require('mysql');
 const  ejs = require('ejs');
+const path = require("path");
 
-
-const port = 3330
+const port = 3333;
 
 // ======== Connected NodeJS via MySQL========
 var cnx = mysql.createConnection({
@@ -14,8 +14,7 @@ database : "gestion_formations"
 })
 const app = express();
 app.set('view engine', 'ejs');
-
-
+app.set("views",path.join(__dirname , "./View_Map"));
 cnx.connect(function(error){
     if(!!error) console.log(error);
     else  console.log('Connected successfuly! :)')
@@ -31,7 +30,7 @@ app.get('/Session/:idSession', (req, res) => {
     cnx.query(sql, (err, row) => {
         console.log(row)
            if (err) throw err;
-           res.render('View_Map/Home', {
+           res.render('Home', {
             
                row: row
            });

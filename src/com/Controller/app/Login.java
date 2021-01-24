@@ -138,7 +138,7 @@ public class Login {
 				if(rs.next()) {
 					if(type.equals("admin")) {
 				
-						 JOptionPane.showMessageDialog(null, "Your welcome in Page home <Admin>");
+						// JOptionPane.showMessageDialog(null, "Your welcome in Page home <Admin>");
 						 HomeAdmin Home_Admin = new HomeAdmin();
 							frmLoginForm.dispose();
 						 

@@ -1,12 +1,15 @@
 package com.Controller.app;
 
 import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Desktop;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,8 +26,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import Connection.Config;
+import javax.swing.SwingConstants;
 
 
 public class Session {
@@ -287,6 +293,9 @@ System.out.println("hhh" + Formation + " ddd" + date_session);
 		lblNewLabel_1_2.setBounds(34, 175, 92, 23);
 		panel.add(lblNewLabel_1_2);
 		
+		
+	
+		
 	
 		
 		JPanel panel_2 = new JPanel();
@@ -306,7 +315,12 @@ System.out.println("hhh" + Formation + " ddd" + date_session);
 		panel_2.add(scrollPane);
 		
 	
-		
+		JLabel link = new JLabel();
+		link.setFont(new Font("Tahoma", Font.BOLD, 16));
+		link.setForeground(Color.WHITE);
+		link.setBounds(155, 285, 101, 14);
+		link.setVisible(false);
+		 panel.add(link);
 		table = new JTable();
 		table.addMouseListener(new MouseAdapter() {
 			@Override
@@ -314,10 +328,28 @@ System.out.println("hhh" + Formation + " ddd" + date_session);
 				 DefaultTableModel df = (DefaultTableModel)table.getModel();	
 			     int selectedIndex = table.getSelectedRow();
 				 textField.setText(df.getValueAt(selectedIndex, 1).toString());
-				 formationCmbx.setModel(new DefaultComboBoxModel(new String[] {df.getValueAt(selectedIndex, 2).toString()})); ;
-
+				 formationCmbx.setModel(new DefaultComboBoxModel(new String[] {df.getValueAt(selectedIndex, 2).toString()}));
+				 link.setVisible(true);
 				
-				
+				 link.setText("Click Here");
+				 link.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				 link.addMouseListener(new MouseAdapter() {
+				   public void mouseClicked(MouseEvent e) {
+				      if (e.getClickCount() > 0) {
+				          if (Desktop.isDesktopSupported()) {
+				                try {
+				                	//Port
+				                	Desktop.getDesktop().browse(new URI("http://localhost:3333/Session/" + df.getValueAt(selectedIndex, 0).toString()));
+				                } catch (IOException ex) {
+				                    ex.printStackTrace();
+				                } catch (URISyntaxException ex) {
+				                    ex.printStackTrace();
+				                }
+				            	
+				        }
+				      }
+				   }
+				});
 			}
 		});
 		table.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -329,6 +361,7 @@ System.out.println("hhh" + Formation + " ddd" + date_session);
 			}
 		));
 		scrollPane.setViewportView(table);
+		
 	}
 	public void Clear() {
 	    textField.setText("");

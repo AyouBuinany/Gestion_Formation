@@ -150,7 +150,8 @@ public class Users {
 		passwordField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent arg0) {
-		
+				passwordField.setEchoChar((char)0);
+				 passwordField_1.setEchoChar((char)0);
 			}
 		});
 		passwordField.setBounds(200, 270, 246, 33);
@@ -222,8 +223,8 @@ public class Users {
 				String nom = textField.getText();
 				String prenom = textField_1.getText();
 				String username = textField_2.getText();
-				String mot_de_pass = passwordField.getToolTipText();
-				String confirm_mot_de_pass = passwordField_1.getToolTipText();	
+				String mot_de_pass = passwordField.getText();
+				String confirm_mot_de_pass = passwordField_1.getText();	
 				String ville = textField_3.getText();
 				String type = cmbType.getSelectedItem().toString();
 				try {
@@ -377,10 +378,8 @@ public class Users {
 				 textField_2.setText(df.getValueAt(selectedIndex, 3).toString());
 				 passwordField.setText(df.getValueAt(selectedIndex, 4).toString());
 				 passwordField_1.setText(df.getValueAt(selectedIndex, 5).toString());
-				 passwordField.setEchoChar((char)0);
-				 passwordField_1.setEchoChar((char)0);
 				 textField_3.setText(df.getValueAt(selectedIndex, 6).toString());
-				 cmbType.setModel(new DefaultComboBoxModel(new String[] {df.getValueAt(selectedIndex, 6).toString() ,"Type :", "admin", "user"})); ;
+				 cmbType.setModel(new DefaultComboBoxModel(new String[] {df.getValueAt(selectedIndex, 7).toString()})); 
 					
 				 btnAdd.setVisible(false);
 				 btnDelete.setVisible(true);
@@ -448,6 +447,9 @@ btnUpdate.setVisible(true);
 				btnAdd.setVisible(true);
 				btnDelete.setVisible(false);
 				btnUpdate.setVisible(false);
+				cmbType.setModel(new DefaultComboBoxModel(new String[] {"Type :", "admin", "user"}));
+				passwordField.setEchoChar(('•'));
+				 passwordField_1.setEchoChar('•');
 			}
 		});
 		
@@ -460,7 +462,7 @@ public void Clear() {
 		passwordField.setText("");
 		passwordField_1.setText("");
 		textField_3.setText("");
-	
+
 		textField.requestFocus();
 		
 		
@@ -468,7 +470,6 @@ public void Clear() {
 	}
 public void show() {
 	try {
-		
 				 if(conn!=null) {
 		 stmt = conn.prepareStatement("SELECT * FROM employe");
 			
